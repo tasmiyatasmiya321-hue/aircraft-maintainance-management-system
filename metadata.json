@@ -1,0 +1,8 @@
+{
+  "name": "Aircraft Maintenance Management System",
+  "description": "Enterprise-grade Aircraft Maintenance Management System (AMMS) for fleet management, work orders, inspections, defects, inventory, employees, compliance, and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
