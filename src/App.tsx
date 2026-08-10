@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { AMMSProvider, useAMMS } from './context/AMMSContext';
+import { LoginPage } from './components/auth/LoginPage';
 import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
 import { Breadcrumb } from './components/layout/Breadcrumb';
@@ -13,6 +14,8 @@ import { DefectsView } from './components/defects/DefectsView';
 import { InventoryView } from './components/inventory/InventoryView';
 import { SuppliersView } from './components/suppliers/SuppliersView';
 import { EmployeesView } from './components/employees/EmployeesView';
+import { UserManagementView } from './components/users/UserManagementView';
+import { AuditLogsView } from './components/audit/AuditLogsView';
 import { DocumentsView } from './components/documents/DocumentsView';
 import { CalendarView } from './components/calendar/CalendarView';
 import { ReportsView } from './components/reports/ReportsView';
@@ -21,10 +24,15 @@ import { AdministrationView } from './components/administration/AdministrationVi
 import { QuickActionModal } from './components/common/QuickActionModal';
 import { AuthModal } from './components/auth/AuthModal';
 
-const AMMSContent: React.FC = () => {
+const AMMSMainContent: React.FC = () => {
+  const { isAuthenticated } = useAuth();
   const { activeTab, activeModule, quickActionModal } = useAMMS();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+
+  if (!isAuthenticated) {
+    return <LoginPage />;
+  }
 
   const currentTab = activeTab || activeModule || 'dashboard';
 
@@ -48,6 +56,10 @@ const AMMSContent: React.FC = () => {
         return <SuppliersView />;
       case 'employees':
         return <EmployeesView />;
+      case 'users':
+        return <UserManagementView />;
+      case 'audit':
+        return <AuditLogsView />;
       case 'documents':
         return <DocumentsView />;
       case 'calendar':
@@ -108,7 +120,7 @@ export default function App() {
   return (
     <AuthProvider>
       <AMMSProvider>
-        <AMMSContent />
+        <AMMSMainContent />
       </AMMSProvider>
     </AuthProvider>
   );

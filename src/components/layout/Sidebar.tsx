@@ -15,7 +15,9 @@ import {
   BarChart3,
   BrainCircuit,
   Settings,
-  ChevronRight
+  ChevronRight,
+  Shield,
+  ScrollText
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -59,6 +61,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed: propCollapsed, setC
     { id: 'inventory', label: 'Inventory & Parts', icon: Package, badge: lowStockCount > 0 ? `${lowStockCount} Alert` : undefined, badgeColor: 'bg-rose-500/20 text-rose-400 border border-rose-500/30' },
     { id: 'suppliers', label: 'Suppliers & POs', icon: Truck },
     { id: 'employees', label: 'Staff & Roster', icon: Users },
+    { id: 'users', label: 'User Management', icon: Shield, badge: 'ADMIN', badgeColor: 'bg-purple-500/20 text-purple-400 border border-purple-500/30' },
+    { id: 'audit', label: 'Audit Logs', icon: ScrollText },
     { id: 'documents', label: 'Document Library', icon: FileText },
     { id: 'calendar', label: 'Schedule Calendar', icon: Calendar },
     { id: 'reports', label: 'Reports & Audits', icon: BarChart3 },

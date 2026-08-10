@@ -1,14 +1,18 @@
 export type UserRole = 
+  | 'ADMIN'
+  | 'MAINTENANCE ENGINEER'
+  | 'INSPECTOR'
+  | 'TECHNICIAN'
+  | 'VIEWER'
   | 'Administrator'
   | 'Maintenance Manager'
   | 'Engineer'
-  | 'Technician'
   | 'Quality Inspector'
-  | 'Store Manager'
-  | 'Viewer';
+  | 'Store Manager';
 
 export interface UserProfile {
   id: string;
+  userId: string; // e.g. "admin", "engineer", "inspector", "technician", "viewer"
   name: string;
   email: string;
   role: UserRole;
@@ -17,7 +21,9 @@ export interface UserProfile {
   licenseExpiry?: string;
   avatarUrl?: string;
   phone?: string;
-  status: 'Active' | 'On Leave' | 'Inactive';
+  status: 'Active' | 'Inactive' | 'On Leave';
+  lastLogin?: string;
+  passwordHash?: string;
 }
 
 export type AircraftStatus = 'Available' | 'In Maintenance' | 'Grounded (AOG)' | 'Inspection Due';
@@ -213,9 +219,11 @@ export interface AuditLog {
   timestamp: string;
   userEmail: string;
   userName: string;
+  userRole?: string;
   action: string;
-  module: 'Aircraft' | 'Work Orders' | 'Defects' | 'Inspections' | 'Inventory' | 'Employees' | 'Documents' | 'System';
+  module: 'Aircraft' | 'Work Orders' | 'Defects' | 'Inspections' | 'Inventory' | 'Employees' | 'Documents' | 'User Management' | 'System' | 'Authentication';
   details: string;
+  relatedRecord?: string;
 }
 
 export interface SystemNotification {

@@ -9,11 +9,11 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
-  const { currentUser, updateProfile, switchRole, activeRole } = useAuth();
-  const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
-  const [department, setDepartment] = useState(currentUser.department);
-  const [license, setLicense] = useState(currentUser.licenseNumber || '');
+  const { currentUser, updateProfile } = useAuth();
+  const [name, setName] = useState(currentUser?.name || '');
+  const [email, setEmail] = useState(currentUser?.email || '');
+  const [department, setDepartment] = useState(currentUser?.department || '');
+  const [license, setLicense] = useState(currentUser?.licenseNumber || '');
 
   if (!isOpen) return null;
 

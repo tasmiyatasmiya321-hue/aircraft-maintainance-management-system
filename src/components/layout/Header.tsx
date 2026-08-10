@@ -46,14 +46,20 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSidebar, onOpenAuth, onOpe
 
   const unreadNotifs = notifications.filter(n => !n.read);
 
+  const displayUser = currentUser || {
+    name: 'Aviation User',
+    email: 'user@skywise-amms.com',
+    role: activeRole,
+    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    licenseNumber: 'FAA-AMMS-USER'
+  };
+
   const rolesList: UserRole[] = [
-    'Administrator',
-    'Maintenance Manager',
-    'Engineer',
-    'Technician',
-    'Quality Inspector',
-    'Store Manager',
-    'Viewer'
+    'ADMIN',
+    'MAINTENANCE ENGINEER',
+    'INSPECTOR',
+    'TECHNICIAN',
+    'VIEWER'
   ];
 
   return (
@@ -205,23 +211,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSidebar, onOpenAuth, onOpe
             className="flex items-center gap-2 p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition"
           >
             <img
-              src={currentUser.avatarUrl}
-              alt={currentUser.name}
+              src={displayUser.avatarUrl}
+              alt={displayUser.name}
               className="w-8 h-8 rounded-xl object-cover ring-2 ring-blue-500/30"
             />
             <div className="text-left hidden lg:block">
-              <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight">{currentUser.name}</div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400">{currentUser.role}</div>
+              <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight">{displayUser.name}</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">{displayUser.role}</div>
             </div>
           </button>
 
           {showUserDropdown && (
             <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-2 z-50">
               <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl mb-1">
-                <div className="font-bold text-xs text-slate-900 dark:text-white">{currentUser.name}</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{currentUser.email}</div>
+                <div className="font-bold text-xs text-slate-900 dark:text-white">{displayUser.name}</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{displayUser.email}</div>
                 <div className="text-[10px] font-mono text-blue-600 dark:text-blue-400 mt-1">
-                  License: {currentUser.licenseNumber || 'FAA-AMMS-PASS'}
+                  License: {displayUser.licenseNumber || 'FAA-AMMS-PASS'}
                 </div>
               </div>
 

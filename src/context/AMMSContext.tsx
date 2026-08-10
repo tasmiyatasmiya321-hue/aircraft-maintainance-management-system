@@ -205,11 +205,30 @@ export const AMMSProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const logAction = (module: AuditLog['module'], action: string, details: string) => {
+    let userName = 'Active System User';
+    let userEmail = 'operator@amms-aviation.com';
+    let userRole = 'OPERATOR';
+
+    try {
+      const activeSessionRaw = localStorage.getItem('amms_active_session');
+      if (activeSessionRaw) {
+        const sessionData = JSON.parse(activeSessionRaw);
+        if (sessionData && sessionData.user) {
+          userName = sessionData.user.name || userName;
+          userEmail = sessionData.user.email || userEmail;
+          userRole = sessionData.user.role || userRole;
+        }
+      }
+    } catch (e) {
+      // Fallback
+    }
+
     const newLog: AuditLog = {
       id: `log-${Date.now()}`,
       timestamp: new Date().toISOString().replace('T', ' ').slice(0, 19),
-      userEmail: 'operator@amms-aviation.com',
-      userName: 'Active System User',
+      userEmail,
+      userName,
+      userRole,
       action,
       module,
       details
